@@ -4,6 +4,7 @@ class UserHandler {
 
     this.getAll = this.getAll.bind(this);
     this.getEmail = this.getEmail.bind(this);
+    this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
@@ -25,6 +26,20 @@ class UserHandler {
       statusCode = 404;
     }
     res.status(statusCode).send({ user: user });
+  }
+
+  update(req, res) {
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const users = this.UserService.update({ name, email, password });
+
+    let statusCode = 200;
+    if (users === "User can't updated") {
+      statusCode = 400;
+    }
+    res.status(statusCode).send({ users: users });
   }
 
   delete(req, res) {

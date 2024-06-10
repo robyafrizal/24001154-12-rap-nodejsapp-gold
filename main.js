@@ -15,6 +15,7 @@ const userHandler = new UserHandler(userService);
 
 app.get("/users", userHandler.getAll);
 app.get("/users/:email", userHandler.getEmail);
+app.put("/users/:email", userHandler.update);
 app.delete("/users/:email", userHandler.delete);
 
 app.post("/register", userHandler.register);

@@ -15,6 +15,14 @@ class UserService {
     return user;
   }
 
+  update({ name, email, password }) {
+    const users = this.UserRepository.update({ name, email, password });
+    if (users === undefined) {
+      return "User not found";
+    }
+    return users;
+  }
+
   delete(email) {
     const user = this.UserRepository.delete(email);
     // if (user === undefined) {

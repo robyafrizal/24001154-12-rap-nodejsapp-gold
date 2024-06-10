@@ -18,6 +18,16 @@ class UserRepository {
     // return this.users.find((user) => user.email === email);
   }
 
+  update({ name, email, password }) {
+    for (let i = 0; i < this.users.length; i++) {
+      if (this.users[i].email === email) {
+        users[i] = { name: name, email: email, password: password };
+        return "Update Success";
+      }
+    }
+    return "User can't updated";
+  }
+
   delete(email) {
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].email == email) {
@@ -53,8 +63,8 @@ class UserRepository {
         return "Login Success";
       }
     }
-    // console.log(users);
     return "Email and password incorrect";
+    // console.log(users);
   }
 }
 
