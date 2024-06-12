@@ -17,11 +17,16 @@ class UserRepository {
     }
     // return this.users.find((user) => user.email === email);
   }
-
+  // add(user) {
+  //   return this.users.push(user);
+  // }
+  add({ name, email, password }) {
+    return this.users.push({ name, email, password });
+  }
   update({ name, email, password }) {
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].email === email) {
-        users[i] = { name: name, email: email, password: password };
+        this.users[i] = { name: name, email: email, password: password };
         return "Update Success";
       }
     }
@@ -36,7 +41,7 @@ class UserRepository {
         return "Delete Success";
       }
     }
-    return "User has been deleted";
+    return "User can't deleted";
   }
 
   register({ name, email, password }) {

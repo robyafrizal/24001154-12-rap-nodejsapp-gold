@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Laptop Macbook",
+        "price": "20000",
+        "user_email": "johan@binar.com"
+    },
+    {
+        "name": "PC Windows",
+        "price": "10000",
+        "user_email": "jono@binar.com"
+    },
+    {
+        "name": "PC Mac",
+        "price": "22000",
+        "user_email": "johan@binar.com"
+    }
+]

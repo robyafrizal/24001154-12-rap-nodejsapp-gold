@@ -14,12 +14,15 @@ class UserService {
     }
     return user;
   }
-
+  add(user) {
+    const users = this.UserRepository.add(user);
+    return users;
+  }
   update({ name, email, password }) {
     const users = this.UserRepository.update({ name, email, password });
-    if (users === undefined) {
-      return "User not found";
-    }
+    // if (users === undefined) {
+    //   return "User not found";
+    // }
     return users;
   }
 
@@ -34,9 +37,9 @@ class UserService {
   register({ name, email, password }) {
     const users = this.UserRepository.register({ name, email, password });
 
-    // if (users === undefined) {
-    //   return "User has registered";
-    // }
+    if (users == "") {
+      return "User can't empty";
+    }
     // console.log(users);
 
     return users;
@@ -50,5 +53,13 @@ class UserService {
     // console.log(users);
     return users;
   }
+
+  // register(user) {
+  //   try {
+  //     return this.UserRepository.add(user);
+  //   } catch (err) {
+  //     throw err;
+  //   }
+  // }
 }
 module.exports = UserService;
