@@ -10,7 +10,7 @@ class UserService {
   getEmail(email) {
     const user = this.UserRepository.getEmail(email);
     if (user === undefined) {
-      return "User not found";
+      return null;
     }
     return user;
   }

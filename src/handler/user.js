@@ -22,7 +22,7 @@ class UserHandler {
 
     let statusCode = 200;
 
-    if (user === "User not found") {
+    if (user === null) {
       statusCode = 404;
     }
     res.status(statusCode).send({ user: user });

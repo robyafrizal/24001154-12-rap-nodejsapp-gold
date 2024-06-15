@@ -3,66 +3,47 @@ class ProductHandler {
     this.ProductService = ProductService;
 
     this.getAll = this.getAll.bind(this);
-    this.getEmail = this.getEmail.bind(this);
     this.create = this.create.bind(this);
   }
 
   getAll(req, res) {
     const products = this.ProductService.getAll();
 
-    res
-      .status(200)
-      .send(this.#validateProduct(true, { products: products }, null));
-  }
+    res.status(200).send({ message: products });
 
-  getEmail(req, res) {
-    const email = req.params.email;
-    const product = this.ProductService.getEmail(email);
-
-    let statusCode = 200;
-    if (product === null) {
-      statusCode = 404;
-    }
-
-    if (statusCode === 404) {
-      res
-        .status(statusCode)
-        .send(this.#validateProduct(false, null, "Product not found"));
-    } else if (statusCode === 200) {
-      res
-        .status(statusCode)
-        .send(this.#validateProduct(true, { product: product }, null));
-    } else {
-      res
-        .status(statusCode)
-        .send(this.#validateProduct(false, null, "Data empty"));
-    }
+    // res
+    //   .status(200)
+    //   .send(this.#validateData(true, { products: products }, null));
   }
 
   create(req, res) {
     const product = req.body;
-    const isProduct = this.ProductService.getEmail(product.user_email);
+    console.log(product);
+    if (!product.name) {
+      return res.status(400).send("Payload harus diisi");
+    }
+    const products = this.ProductService.create(product);
 
     let statusCode = 200;
-    if (product === null) {
-      statusCode = 404;
-    }
-    if (isProduct) {
-      res
+    if (products === "Product already exist") {
+      return res
         .status(400)
-        .send(this.#validateProduct(false, null, "Product already exist"));
-    } else if (statusCode === 200) {
-      res
-        .status(statusCode)
-        .send(this.#validateProduct(true, { product: product }, null));
-    } else {
-      res
-        .status(statusCode)
-        .send(this.#validateProduct(false, null, "Data empty"));
+        .send(
+          this.#validateData(false, { product: null }, "Product already exist")
+        );
+    } else if (product === null) {
+      return res
+        .status(404)
+        .send(
+          this.#validateData(false, { product: null }, "Product can not empty")
+        );
     }
+    return res
+      .status(statusCode)
+      .send(this.#validateData(true, { product: product }, null));
   }
 
-  #validateProduct(isSuccess, data, err) {
+  #validateData(isSuccess, data, err) {
     if (isSuccess) {
       return { status: "Success", data: data };
     } else {

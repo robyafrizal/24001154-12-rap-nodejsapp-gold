@@ -1,0 +1,23 @@
+[
+    {
+        "nameProduct": "Laptop Acer",
+        "user_email": "johan@binar.com",
+        "statusName": "Delivered",
+        "requestDate": "1 Juni 2024",
+        "trackingNumber": "dkfjnsmeut837chdka93"
+    },
+    {
+        "nameProduct": "Handphone Xiaomi",
+        "user_email": "jono@binar.com",
+        "statusName": "Delivered",
+        "requestDate": "3 Juni 2024",
+        "trackingNumber": "jdnalwio398hnwu37sb"
+    },
+    {
+        "nameProduct": "Laptop Acer",
+        "user_email": "johan@binar.com",
+        "statusName": "Delivered",
+        "requestDate": "1 Juni 2024",
+        "trackingNumber": "ywoendlai9387dh492jb"
+    }
+]

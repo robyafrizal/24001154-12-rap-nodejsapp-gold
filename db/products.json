@@ -1,17 +1,20 @@
 [
     {
-        "name": "Laptop Macbook",
+        "name": "laptop Macbook",
         "price": "20000",
-        "user_email": "johan@binar.com"
+        "user_email": "johan@binar.com",
+        "category_code": "lp"
     },
     {
-        "name": "PC Windows",
+        "name": "handphone Samsung",
         "price": "10000",
-        "user_email": "jono@binar.com"
+        "user_email": "jono@binar.com",
+        "category_code": "hp"
     },
     {
-        "name": "PC Mac",
+        "name": "laptop Acer",
         "price": "22000",
-        "user_email": "johan@binar.com"
+        "user_email": "johan@binar.com",
+        "category_code": "lp"
     }
 ]
