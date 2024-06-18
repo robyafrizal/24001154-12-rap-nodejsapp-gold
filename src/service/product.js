@@ -62,9 +62,6 @@ class ProductService {
   //   });
   // }
 
-  // getEmail(email) {
-  //   const product = this.ProductRepository.getEmail(email);
-
   create(product) {
     const products = this.ProductRepository.create(product);
     return products;

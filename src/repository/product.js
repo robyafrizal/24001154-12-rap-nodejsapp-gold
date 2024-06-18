@@ -9,10 +9,6 @@ class ProductRepository {
     return this.products;
   }
 
-  // getEmail(email) {
-  //   return this.products.find((product) => product.user_email === email);
-  // }
-
   create(product) {
     const isProduct = this.products.find((item) => item.name === product.name);
     if (!isProduct) {

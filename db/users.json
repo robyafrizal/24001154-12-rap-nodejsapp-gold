@@ -1,12 +1,20 @@
 [
     {
+        "id": 1,
         "name": "Jono",
         "email": "jono@binar.com",
         "password": "jono1123"
     },
     {
+        "id": 2,
         "name": "Johan",
         "email": "johan@binar.com",
         "password": "johan1123"
+    },
+    {
+        "id": 3,
+        "name": "Javid",
+        "email": "javid@binar.com",
+        "password": "javid1123"
     }
 ]

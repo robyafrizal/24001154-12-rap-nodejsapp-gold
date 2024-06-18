@@ -10,7 +10,7 @@ class UserService {
   getEmail(email) {
     const user = this.UserRepository.getEmail(email);
     if (user === undefined) {
-      return null;
+      return "Data not found";
     }
     return user;
   }
@@ -20,37 +20,21 @@ class UserService {
   }
   update({ name, email, password }) {
     const users = this.UserRepository.update({ name, email, password });
-    // if (users === undefined) {
-    //   return "User not found";
-    // }
     return users;
   }
 
   delete(email) {
     const user = this.UserRepository.delete(email);
-    // if (user === undefined) {
-    //   return "User has been deleted";
-    // }
     return user;
   }
 
   register({ name, email, password }) {
     const users = this.UserRepository.register({ name, email, password });
-
-    if (users == "") {
-      return "User can't empty";
-    }
-    // console.log(users);
-
     return users;
   }
 
   login({ email, password }) {
     const users = this.UserRepository.login({ email, password });
-    // if (users === undefined) {
-    //   return "Email and password incorrect";
-    // }
-    // console.log(users);
     return users;
   }
 

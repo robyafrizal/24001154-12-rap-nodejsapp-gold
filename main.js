@@ -3,6 +3,14 @@ const express = require("express");
 const app = express();
 const PORT = 3001;
 
+//Static file
+const path = require("path");
+app.use(express.static("public"));
+
+//Import midddleware
+const logger = require("./src/middleware/logger");
+const not_found = require("./src/middleware/not_found");
+
 const UserRepository = require("./src/repository/user");
 const UserService = require("./src/service/user");
 const UserHandler = require("./src/handler/user");
@@ -18,14 +26,12 @@ const CategoryRepository = require("./src/repository/category");
 const OrderHandler = require("./src/handler/order");
 const OrderService = require("./src/service/order");
 const OrderRepository = require("./src/repository/order");
-//-----------------User Handler------------------------------
-const logger = (req, res, next) => {
-  console.log(`${req.method} ${req.hostname} ${req.url}`);
-  next();
-};
+const { timeLog } = require("console");
+
 app.use(express.json());
 app.use(logger);
 
+//-----------------User Handler------------------------------
 //Dependency Injection Method
 const userRepository = new UserRepository();
 const userService = new UserService(userRepository);
@@ -54,9 +60,9 @@ const orderHandler = new OrderHandler(orderService);
 
 app.get("/orders", orderHandler.getAll);
 app.post("/orders", orderHandler.create);
-app.get("/orders/:id", orderHandler.getById);
-app.put("/orders/:id", orderHandler.update);
-app.delete("/orders/:id", orderHandler.delete);
+// app.get("/orders/:id", orderHandler.getById);
+// app.put("/orders/:id", orderHandler.update);
+// app.delete("/orders/:id", orderHandler.delete);
 
 //------------------Product Handler------------------------------
 const productRepository = new ProductRepository();
@@ -69,6 +75,42 @@ const productHandler = new ProductHandler(productService);
 
 app.get("/products", productHandler.getAll);
 app.post("/products", productHandler.create);
+
+//-------------------Routing Middleware-----------------------------
+const testRouter = express.Router();
+
+testRouter.use((req, res, next) => {
+  console.log("Ini middleware khusus endpoint testing");
+  next(); //Lanjut ke middleware berikutnya
+});
+testRouter.use(function timeLog(req, res, next) {
+  console.log("Time", Date.now());
+  next();
+});
+testRouter.get("/test", (req, res) => {
+  res.send("Ini data testing");
+});
+
+app.use(testRouter);
+
+//-------------------Internal Server Erro Middlewarer-----------------------------
+app.get("/get-error", (req, res) => {
+  res.send(data); //Error data is not defined
+});
+app.use((err, req, res, next) => {
+  console.log(err);
+
+  res.status(500).json({ status: "Failed", errors: err.message });
+});
+
+//-------------------404 Handler Error not found Middleware-----------------------------
+//Menghandle error jika endpoint belum dibuat
+app.use(not_found);
+
+//------------Static file - Endpoint untuk show images----------------
+app.get("/image.jpeg", (req, res) => {
+  res.sendFile(path.join(__dirname, "image.jpeg"));
+});
 
 //-------------------Listen_And_Note-----------------------------
 app.listen(PORT, () => {

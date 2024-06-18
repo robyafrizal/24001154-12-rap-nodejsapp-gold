@@ -22,7 +22,7 @@ class UserHandler {
 
     let statusCode = 200;
 
-    if (user === null) {
+    if (user === "Data not found") {
       statusCode = 404;
     }
     res.status(statusCode).send({ user: user });
@@ -36,7 +36,7 @@ class UserHandler {
     const users = this.UserService.update({ name, email, password });
 
     let statusCode = 200;
-    if (users === "User can't updated") {
+    if (users === "Payload data is empty") {
       statusCode = 400;
     }
     res.status(statusCode).send({ users: users });
@@ -48,15 +48,18 @@ class UserHandler {
 
     let statusCode = 200;
 
-    if (user === "User can't deleted") {
+    if (user === "Data not found") {
       statusCode = 404;
     }
     res.status(statusCode).send({ user: user });
   }
 
   register(req, res) {
-    const { name, email, password } = req.body;
-    const users = this.UserService.register({ name, email, password });
+    const user = req.body;
+    if (!user.name || !user.email || !user.password) {
+      return res.status(400).send("Payload harus diisi");
+    }
+    const users = this.UserService.register(user);
 
     // return 201 (created) ketika berhasil
     let statusCode = 201;
@@ -64,8 +67,6 @@ class UserHandler {
     // gagal return 400
     if (users === "User has registered") {
       statusCode = 400;
-    } else if (users === "User can't empty") {
-      statusCode = 401;
     }
     res.status(statusCode).send({ users: users });
   }
@@ -74,63 +75,13 @@ class UserHandler {
     const { email, password } = req.body;
     const users = this.UserService.login({ email, password });
 
-    // let statusCode = 200;
+    let statusCode = 200;
 
-    // if (users === "Email and password incorrect") {
-    //   statusCode = 400;
-    // } else if (users === undefined) {
-    //   statusCode = 401;
-    //   message = "User not found";
-    // }
-    // res.status(statusCode).send({ users: users });
-
-    if (users.email !== email && users.password !== password) {
-      res.status(400).send({ message: "Email and password incorrect" });
-    } else if (users.email === undefined && users.password === undefined) {
-      res.status(401).send({ message: "Email and password can not empty" });
-    } else {
-      res.status(200).send({ message: "Login Success" });
+    if (users === "Email and password incorrect") {
+      statusCode = 400;
     }
+    res.status(statusCode).send({ users: users });
   }
-  // validateUser(isSuccess, data, err) {
-  //   if (isSuccess) {
-  //     return { status: "Success", data: data };
-  //   } else {
-  //     return { status: "Failed", message: err };
-  //   }
-  // }
-  // register(req, res) {
-  //   const user = req.body;
-  //   if (this.#isUser(user)) {
-  //     this.UserService.register(user)
-  //       .then((result) => {
-  //         res.status(201).send();
-  //       })
-  //       .catch((err) => {
-  //         res.status(404).send(this.#validateUser(false, null, err));
-  //       });
-  //   } else {
-  //     res.status(404).send(this.#validateUser(false, null, "User not found"));
-  //   }
-  // }
-  // #isUser(user) {
-  //   return user?.name != null && user?.email != null && user?.password != null;
-  // }
-  // login(req,res){
-  //   const user = req.body
-  //   const existUser = this.UserService.getEmail(user.email)
-  //   console.log(existUser)
-  //   if(existUser && existUser.password === user.password){
-  //     res
-  //       .status(200)
-  //       .send(this.#validateUser(true, existUser, null));
-  //   }
-  //   else{
-  //     res
-  //       .status(400)
-  //       .send(this.#validateUser(false, null, "Wrong email and password"));
-  //   }
-  // }
 }
 
 module.exports = UserHandler;
