@@ -26,7 +26,6 @@ const CategoryRepository = require("./src/repository/category");
 const OrderHandler = require("./src/handler/order");
 const OrderService = require("./src/service/order");
 const OrderRepository = require("./src/repository/order");
-const { timeLog } = require("console");
 
 app.use(express.json());
 app.use(logger);
@@ -38,9 +37,9 @@ const userService = new UserService(userRepository);
 const userHandler = new UserHandler(userService);
 
 app.get("/users", userHandler.getAll);
-app.get("/users/:email", userHandler.getEmail);
-app.put("/users", userHandler.update);
-app.delete("/users/:email", userHandler.delete);
+// app.get("/users/:email", userHandler.getEmail);
+// app.put("/users", userHandler.update);
+// app.delete("/users/:email", userHandler.delete);
 
 app.post("/register", userHandler.register);
 app.post("/login", userHandler.login);
@@ -59,6 +58,7 @@ const orderService = new OrderService(orderRepository);
 const orderHandler = new OrderHandler(orderService);
 
 app.get("/orders", orderHandler.getAll);
+app.get("/orders/:id", orderHandler.getById);
 app.post("/orders", orderHandler.create);
 // app.get("/orders/:id", orderHandler.getById);
 // app.put("/orders/:id", orderHandler.update);

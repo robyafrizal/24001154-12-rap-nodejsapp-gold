@@ -7,6 +7,10 @@ class OrderService {
     const orders = this.OrderRepository.getAll();
     return orders;
   }
+  getById(id) {
+    const orders = this.OrderRepository.getById(id);
+    return orders;
+  }
   create(order) {
     const orders = this.OrderRepository.create(order);
     return orders;

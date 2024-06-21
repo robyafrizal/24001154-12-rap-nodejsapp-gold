@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "nameProduct": "Laptop Acer",
         "user_email": "johan@binar.com",
         "statusName": "Delivered",
@@ -7,6 +8,7 @@
         "trackingNumber": "dkfjnsmeut837chdka93"
     },
     {
+        "id": 2,
         "nameProduct": "Handphone Xiaomi",
         "user_email": "jono@binar.com",
         "statusName": "Delivered",
@@ -14,6 +16,7 @@
         "trackingNumber": "jdnalwio398hnwu37sb"
     },
     {
+        "id": 3,
         "nameProduct": "Laptop Acer",
         "user_email": "johan@binar.com",
         "statusName": "Delivered",

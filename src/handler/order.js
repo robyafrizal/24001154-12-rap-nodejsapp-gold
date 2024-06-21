@@ -4,6 +4,7 @@ class OrderHandler {
 
     //Jika tidak ada : TypeError: Cannot read properties of undefined
     this.getAll = this.getAll.bind(this);
+    this.getById = this.getById.bind(this);
     this.create = this.create.bind(this);
   }
 
@@ -11,6 +12,17 @@ class OrderHandler {
     const orders = this.OrderService.getAll();
     // res.status(200).send("Order Handle created");
     res.status(200).send(orders);
+  }
+  getById(req, res) {
+    const id = req.params.id;
+    const orders = this.OrderService.getById(id);
+
+    let statusCode = 200;
+
+    if (orders === "Data not found") {
+      statusCode = 404;
+    }
+    res.status(statusCode).send({ orders: orders });
   }
   create(req, res) {
     const order = req.body;

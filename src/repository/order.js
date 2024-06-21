@@ -8,8 +8,16 @@ class OrderRepository {
   getAll() {
     return this.orders;
   }
+  getById(id) {
+    for (let i = 0; i < this.orders.length; i++) {
+      if (this.orders[i].id === parseInt(id)) {
+        return this.orders[i];
+      }
+    }
+    return "Data not found";
+  }
   create(order) {
-    this.orders.push(order);
+    return this.orders.push(order);
   }
 }
 
