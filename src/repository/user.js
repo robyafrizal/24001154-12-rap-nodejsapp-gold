@@ -7,7 +7,6 @@ class UserRepository {
     const getUsers = await sql`SELECT id, name, email FROM users`;
     return getUsers;
   }
-
   async getByEmail(email) {
     const getEmailUser =
       await sql`SELECT email,password FROM users WHERE email=${email}`;
@@ -15,7 +14,7 @@ class UserRepository {
   }
   async getById(id) {
     const getIdlUser =
-      await sql`SELECT name, email,password FROM users WHERE id=${id}`;
+      await sql`SELECT id, name, email,password FROM users WHERE id=${id} is not null`;
     return getIdlUser;
   }
 

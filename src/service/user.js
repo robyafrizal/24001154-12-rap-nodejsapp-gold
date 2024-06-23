@@ -27,16 +27,16 @@ class UserService {
       email,
       password,
     });
-    const users = await this.UserRepository.getAll();
-    if (id != false) {
+    const userNotNull = await this.UserRepository.getById(id);
+    // console.log(userNotNull[userNotNull.length - 1].id);
+    if (id == userNotNull[userNotNull.length - 1].id) {
       return {
         updateUser: { name, email },
         message: "Update user success ",
         statusCode: 200,
       };
-    } else {
-      return { message: "User not found", statusCode: 400 };
     }
+    return { message: "User not found", statusCode: 400 };
   }
 
   async register({ name, email, password }) {
