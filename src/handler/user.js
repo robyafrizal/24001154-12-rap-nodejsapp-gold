@@ -3,14 +3,44 @@ class UserHandler {
     this.UserService = UserService;
 
     this.getAll = this.getAll.bind(this);
+    this.getById = this.getById.bind(this);
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   async getAll(req, res) {
     try {
       const users = await this.UserService.getAll();
       res.status(200).send(users);
+    } catch (err) {
+      res.status(400).send({ message: err.message });
+    }
+  }
+  async getById(req, res) {
+    try {
+      const id = req.params.id;
+      const userById = await this.UserService.getById(id);
+      res.status(userById.statusCode).send(userById);
+    } catch (err) {
+      res.status(userById.statusCode).send({ message: err.message });
+    }
+  }
+
+  async update(req, res) {
+    try {
+      const { id, name, email, password } = req.body;
+      const updateUser = await this.UserService.update({
+        id,
+        name,
+        email,
+        password,
+      });
+
+      res
+        .status(updateUser.statusCode)
+        .send({ users: updateUser, message: updateUser.message });
     } catch (err) {
       res.status(400).send({ message: err.message });
     }
@@ -43,6 +73,15 @@ class UserHandler {
         .send({ user: userLogin, message: userLogin.message });
     } catch (err) {
       res.status(400).send({ message: err.message });
+    }
+  }
+  async delete(req, res) {
+    try {
+      const id = req.params.id;
+      const deleteUser = await this.UserService.delete(id);
+      res.status(deleteUser.statusCode).send({ message: deleteUser.message });
+    } catch (err) {
+      res.status(deleteUser.statusCode).send({ message: err.message });
     }
   }
 

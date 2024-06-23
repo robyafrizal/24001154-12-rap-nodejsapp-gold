@@ -4,25 +4,40 @@ class UserRepository {
   constructor() {}
 
   async getAll() {
-    const getUsers = await sql`select id, name, email from users`;
+    const getUsers = await sql`SELECT id, name, email FROM users`;
     return getUsers;
   }
 
   async getByEmail(email) {
     const getEmailUser =
-      await sql`select email,password from users where email=${email}`;
+      await sql`SELECT email,password FROM users WHERE email=${email}`;
     return getEmailUser[0];
+  }
+  async getById(id) {
+    const getIdlUser =
+      await sql`SELECT name, email,password FROM users WHERE id=${id}`;
+    return getIdlUser;
   }
 
   async create(user) {
     const createUser =
-      await sql`insert into users(name,email,password) values(${user.name}, ${user.email}, ${user.password})`;
+      await sql`INSERT INTO users(name,email,password) VALUES(${user.name}, ${user.email}, ${user.password})`;
     return createUser;
+  }
+  async update(user) {
+    const updateUser =
+      await sql`UPDATE users SET id = ${user.id}, name = ${user.name}, email = ${user.email}, password = ${user.password} WHERE id = ${user.id};`;
+    return updateUser;
+  }
+
+  async delete(id) {
+    const deleteUser =
+      await sql`DELETE FROM users WHERE id=${id} RETURNING id;`;
+    return deleteUser;
   }
 }
 
-// const users = require("../../db/users.json");
-
+// const users = require("../../db/users.json");SELECT
 // class UserRepository {
 //   constructor() {
 //     this.users = users;

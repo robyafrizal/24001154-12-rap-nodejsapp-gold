@@ -7,26 +7,59 @@ class UserService {
     const users = await this.UserRepository.getAll();
     return users;
   }
-
-  async register({ name, email, password }) {
-    const emailUser = await this.UserRepository.getByEmail(email);
-    const newUser = { name, email, password };
-    console.log(emailUser);
-    if (emailUser) {
-      return { message: "User already registered", statusCode: 400 };
+  async getById(id) {
+    const userById = await this.UserRepository.getById(id);
+    if (userById == false) {
+      return { message: "User not found", statusCode: 400 };
     } else {
-      this.UserRepository.create(newUser);
       return {
-        newUser: newUser,
-        message: "User created success",
+        userById: userById,
+        message: "Get user by id success",
         statusCode: 200,
       };
     }
   }
 
+  async update({ id, name, email, password }) {
+    const updateUser = await this.UserRepository.update({
+      id,
+      name,
+      email,
+      password,
+    });
+    const users = await this.UserRepository.getAll();
+    if (id != false) {
+      return {
+        updateUser: { name, email },
+        message: "Update user success ",
+        statusCode: 200,
+      };
+    } else {
+      return { message: "User not found", statusCode: 400 };
+    }
+  }
+
+  async register({ name, email, password }) {
+    const emailUser = await this.UserRepository.getByEmail(email);
+    const newUser = { name, email, password };
+    if (name === undefined || email === undefined || password === undefined) {
+      return { message: "Payload can not empty", statusCode: 400 };
+    } else {
+      if (emailUser) {
+        return { message: "User already registered", statusCode: 400 };
+      } else {
+        this.UserRepository.create(newUser);
+        return {
+          newUser: newUser,
+          message: "User created success",
+          statusCode: 200,
+        };
+      }
+    }
+  }
+
   async login({ email, password }) {
     const emailUser = await this.UserRepository.getByEmail(email);
-    console.log(emailUser);
     if (!emailUser) {
       return { message: "Email and password incorrrect", statusCode: 400 };
     }
@@ -34,6 +67,18 @@ class UserService {
       return { message: "Login Success", statusCode: 200 };
     } else {
       return { message: "Password incorrect", statusCode: 400 };
+    }
+  }
+  async delete(id) {
+    const deleteUser = await this.UserRepository.delete(id);
+    if (deleteUser == false) {
+      return { message: "User not found", statusCode: 400 };
+    } else {
+      return {
+        deleteUser: deleteUser,
+        message: "Delete user success",
+        statusCode: 200,
+      };
     }
   }
 

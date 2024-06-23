@@ -37,8 +37,10 @@ const userService = new UserService(userRepository);
 const userHandler = new UserHandler(userService);
 
 app.get("/users", userHandler.getAll);
+app.get("/users/:id", userHandler.getById);
 // app.get("/users/:email", userHandler.getEmail);
-// app.put("/users", userHandler.update);
+app.put("/users", userHandler.update);
+app.delete("/users/:id", userHandler.delete);
 // app.delete("/users/:email", userHandler.delete);
 
 app.post("/register", userHandler.register);
