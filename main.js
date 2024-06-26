@@ -52,7 +52,10 @@ const categoryService = new CategoryService(categoryRepository);
 const categoryHandler = new CategoryHandler(categoryService);
 
 app.get("/categories", categoryHandler.getAll);
+app.get("/categories/:id", categoryHandler.getById);
 app.post("/categories", categoryHandler.create);
+app.put("/categories", categoryHandler.update);
+app.delete("/categories/:id", categoryHandler.delete);
 
 //---------------------Order Handler-----------------------------------
 const orderRepository = new OrderRepository();
@@ -77,6 +80,9 @@ const productHandler = new ProductHandler(productService);
 
 app.get("/products", productHandler.getAll);
 app.post("/products", productHandler.create);
+app.get("/products/:id", productHandler.getById);
+app.put("/products", productHandler.update);
+app.delete("/products/:id", productHandler.delete);
 
 //-------------------Routing Middleware-----------------------------
 const testRouter = express.Router();

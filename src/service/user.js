@@ -69,6 +69,7 @@ class UserService {
       return { message: "Password incorrect", statusCode: 400 };
     }
   }
+
   async delete(id) {
     const deleteUser = await this.UserRepository.delete(id);
     if (deleteUser == false) {
@@ -82,6 +83,7 @@ class UserService {
     }
   }
 
+  //------------------------------------------------
   // constructor(UserRepository) {
   //   this.UserRepository = UserRepository;
   // }
