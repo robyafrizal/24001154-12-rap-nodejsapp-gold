@@ -1,23 +1,40 @@
-const orders = require("../../db/orders.json");
+const { Order } = require("../../models");
 
 class OrderRepository {
-  constructor() {
-    this.orders = orders;
+  constructor() {}
+
+  async findAll() {
+    const orderList = await Order.findAll();
+
+    return orderList;
   }
 
-  getAll() {
-    return this.orders;
+  async findId(id) {
+    const idOrder = await Order.findOne({ where: { id: id } });
+    return idOrder;
   }
-  getById(id) {
-    for (let i = 0; i < this.orders.length; i++) {
-      if (this.orders[i].id === parseInt(id)) {
-        return this.orders[i];
-      }
-    }
-    return "Data not found";
+
+  async insert(order) {
+    const createdOrder = await Order.create({
+      name: order.name,
+      status: order.status,
+    });
+    return createdOrder;
   }
-  create(order) {
-    return this.orders.push(order);
+
+  async update(order) {
+    const updatedOrder = await Order.update(
+      { name: order.name, status: order.status },
+      { where: { id: order.id } }
+    );
+    return updatedOrder;
+  }
+
+  async delete(id) {
+    const deletedOrder = await Order.destroy({
+      where: { id: id },
+    });
+    return deletedOrder;
   }
 }
 

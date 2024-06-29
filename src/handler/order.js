@@ -2,32 +2,72 @@ class OrderHandler {
   constructor(OrderService) {
     this.OrderService = OrderService;
 
-    //Jika tidak ada : TypeError: Cannot read properties of undefined
     this.getAll = this.getAll.bind(this);
-    this.getById = this.getById.bind(this);
+    this.getId = this.getId.bind(this);
     this.create = this.create.bind(this);
+    this.update = this.update.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
-  getAll(req, res) {
-    const orders = this.OrderService.getAll();
-    // res.status(200).send("Order Handle created");
-    res.status(200).send(orders);
+  async getAll(req, res) {
+    const serviceRes = await this.OrderService.getAll();
+
+    res.status(serviceRes.statusCode).send({
+      orders: serviceRes.orders,
+    });
   }
-  getById(req, res) {
-    const id = req.params.id;
-    const orders = this.OrderService.getById(id);
 
-    let statusCode = 200;
-
-    if (orders === "Data not found") {
-      statusCode = 404;
+  async getId(req, res) {
+    try {
+      const id = req.params.id;
+      const orderId = await this.OrderService.getId(id);
+      res
+        .status(orderId.statusCode)
+        .send({ items: orderId.orderId, message: orderId.message });
+    } catch (err) {
+      res.status(orderId.statusCode).send({ message: err.message });
     }
-    res.status(statusCode).send({ orders: orders });
   }
-  create(req, res) {
-    const order = req.body;
-    const orders = this.OrderService.create(order);
-    res.status(200).send(orders);
+
+  async create(req, res) {
+    const payload = req.body;
+    const serviceRes = await this.OrderService.create(payload);
+
+    res.status(serviceRes.statusCode).send({
+      created_order: serviceRes.createdOrder,
+      message: serviceRes.message,
+    });
+  }
+
+  async update(req, res) {
+    try {
+      const { id, name, status } = req.body;
+      const updatedOrder = await this.OrderService.update({
+        id,
+        name,
+        status,
+      });
+
+      res.status(updatedOrder.statusCode).send({
+        items: updatedOrder.updatedOrder,
+        message: updatedOrder.message,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(updatedOrder.statusCode).send({ message: err.message });
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const id = req.params.id;
+      const deletedOrder = await this.OrderService.delete(id);
+      res
+        .status(deletedOrder.statusCode)
+        .send({ message: deletedOrder.message });
+    } catch (err) {
+      res.status(deletedOrder.statusCode).send({ message: err.message });
+    }
   }
 }
 

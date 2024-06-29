@@ -4,18 +4,48 @@ class UserService {
   }
 
   async getAll() {
-    const users = await this.UserRepository.getAll();
-    return users;
+    try {
+      const userList = await this.UserRepository.findAll();
+
+      return {
+        statusCode: 200,
+        users: userList,
+      };
+    } catch (err) {
+      return {
+        statusCode: 500,
+        users: null,
+      };
+    }
   }
-  async getById(id) {
-    const userById = await this.UserRepository.getById(id);
-    if (userById == false) {
+
+  async getId(id) {
+    const userById = await this.UserRepository.findId(id);
+    if (!userById) {
       return { message: "User not found", statusCode: 400 };
     } else {
       return {
         userById: userById,
         message: "Get user by id success",
         statusCode: 200,
+      };
+    }
+  }
+
+  async getEmail(email) {
+    try {
+      const userEmail = await this.UserRepository.findEmail(email);
+
+      if (userEmail) {
+        return {
+          statusCode: 200,
+          users: userEmail,
+        };
+      }
+    } catch (err) {
+      return {
+        statusCode: 500,
+        users: null,
       };
     }
   }
@@ -27,46 +57,15 @@ class UserService {
       email,
       password,
     });
-    const userNotNull = await this.UserRepository.getById(id);
-    // console.log(userNotNull[userNotNull.length - 1].id);
-    if (id == userNotNull[userNotNull.length - 1].id) {
+    const userId = await this.UserRepository.findId(id);
+    if (userId != null) {
       return {
         updateUser: { name, email },
         message: "Update user success ",
         statusCode: 200,
       };
-    }
-    return { message: "User not found", statusCode: 400 };
-  }
-
-  async register({ name, email, password }) {
-    const emailUser = await this.UserRepository.getByEmail(email);
-    const newUser = { name, email, password };
-    if (name === undefined || email === undefined || password === undefined) {
-      return { message: "Payload can not empty", statusCode: 400 };
     } else {
-      if (emailUser) {
-        return { message: "User already registered", statusCode: 400 };
-      } else {
-        this.UserRepository.create(newUser);
-        return {
-          newUser: newUser,
-          message: "User created success",
-          statusCode: 200,
-        };
-      }
-    }
-  }
-
-  async login({ email, password }) {
-    const emailUser = await this.UserRepository.getByEmail(email);
-    if (!emailUser) {
-      return { message: "Email and password incorrrect", statusCode: 400 };
-    }
-    if (password === emailUser.password) {
-      return { message: "Login Success", statusCode: 200 };
-    } else {
-      return { message: "Password incorrect", statusCode: 400 };
+      return { statusCode: 400, message: "User not found" };
     }
   }
 
@@ -82,54 +81,5 @@ class UserService {
       };
     }
   }
-
-  //------------------------------------------------
-  // constructor(UserRepository) {
-  //   this.UserRepository = UserRepository;
-  // }
-
-  // getAll() {
-  //   const users = this.UserRepository.getAll();
-  //   return users;
-  // }
-  // getEmail(email) {
-  //   const user = this.UserRepository.getEmail(email);
-  //   if (user === undefined) {
-  //     return "Data not found";
-  //   }
-  //   return user;
-  // }
-  // add(user) {
-  //   const users = this.UserRepository.add(user);
-  //   return users;
-  // }
-  // update({ name, email, password }) {
-  //   const users = this.UserRepository.update({ name, email, password });
-  //   return users;
-  // }
-
-  // delete(email) {
-  //   const user = this.UserRepository.delete(email);
-  //   return user;
-  // }
-
-  // register({ name, email, password }) {
-  //   const users = this.UserRepository.register({ name, email, password });
-  //   return users;
-  // }
-
-  // login({ email, password }) {
-  //   const users = this.UserRepository.login({ email, password });
-  //   return users;
-  // }
-
-  //-------------------add code not run--------------------------
-  // register(user) {
-  //   try {
-  //     return this.UserRepository.add(user);
-  //   } catch (err) {
-  //     throw err;
-  //   }
-  // }
 }
 module.exports = UserService;
