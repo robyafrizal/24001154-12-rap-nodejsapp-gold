@@ -1,3 +1,3 @@
-Rancangan database menggunakan ERD
+## Rancangan database menggunakan ERD
 
-![Image description](/images/picture.jpg)
+![Rancangan Database ERD](/images/erd.png)
