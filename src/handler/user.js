@@ -22,7 +22,7 @@ class UserHandler {
       const userById = await this.UserService.getId(id);
       res
         .status(userById.statusCode)
-        .send({ users: userById.updateUser, message: userById.message });
+        .send({ users: userById.userById, message: userById.message });
     } catch (err) {
       res.status(userById.statusCode).send({ message: err.message });
     }
