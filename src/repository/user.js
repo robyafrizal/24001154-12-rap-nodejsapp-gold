@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const { User } = require("../../models");
 
 class UserRepository {
@@ -20,10 +21,11 @@ class UserRepository {
   }
 
   async create(user) {
+    const encryptedPassword = bcrypt.hashSync(user.password, 10);
     const createdUser = await User.create({
       name: user.name,
       email: user.email,
-      password: user.password,
+      password: encryptedPassword,
     });
     return createdUser;
   }

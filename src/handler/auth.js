@@ -3,6 +3,7 @@ class AuthHandler {
     this.AuthService = AuthService;
 
     this.register = this.register.bind(this);
+    this.registerPage = this.registerPage.bind(this);
     this.login = this.login.bind(this);
   }
 
@@ -14,9 +15,14 @@ class AuthHandler {
       res
         .status(userRegister.statusCode)
         .send({ users: userRegister.newUser, message: userRegister.message });
+      // res.redirect("login");
     } catch (err) {
       res.status(500).send({ message: err.message });
     }
+  }
+
+  async registerPage(req, res) {
+    res.render("register");
   }
 
   async login(req, res) {

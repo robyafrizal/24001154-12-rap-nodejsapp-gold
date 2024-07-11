@@ -34,6 +34,7 @@ const authService = new AuthService(userRepository);
 const authHandler = new AuthHandler(authService);
 // console.log("auth service");
 
+router.get("/register", authHandler.registerPage);
 router.post("/register", authHandler.register);
 router.post("/login", authHandler.login);
 
