@@ -32,23 +32,23 @@ class UserService {
     }
   }
 
-  async getEmail(email) {
-    try {
-      const userEmail = await this.UserRepository.findEmail(email);
+  // async getEmail(email) {
+  //   try {
+  //     const userEmail = await this.UserRepository.findEmail(email);
 
-      if (userEmail) {
-        return {
-          statusCode: 200,
-          users: userEmail,
-        };
-      }
-    } catch (err) {
-      return {
-        statusCode: 500,
-        users: null,
-      };
-    }
-  }
+  //     if (userEmail) {
+  //       return {
+  //         statusCode: 200,
+  //         users: userEmail,
+  //       };
+  //     }
+  //   } catch (err) {
+  //     return {
+  //       statusCode: 500,
+  //       users: null,
+  //     };
+  //   }
+  // }
 
   async update({ id, name, email, password }) {
     const updateUser = await this.UserRepository.update({

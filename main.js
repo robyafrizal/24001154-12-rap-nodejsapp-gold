@@ -1,7 +1,23 @@
 //-----------------Require-----------------------------
 const express = require("express");
+const session = require("express-session");
 const app = express();
-const PORT = 3001;
+const PORT = process.env.port || 3001;
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use(
+  session({
+    secret: "rahasia",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.set("view engine", "ejs");
+app.get("/", (req, res) => {
+  res.render("index");
+});
 
 //Import midddleware
 const logger = require("./src/middleware/logger");
