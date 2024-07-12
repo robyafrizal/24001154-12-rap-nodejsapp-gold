@@ -41,13 +41,14 @@ class ItemHandler {
 
   async update(req, res) {
     try {
-      const { id, name, price, user_id, order_id } = req.body;
+      const { name, price, user_id, order_id } = req.body;
+      const { id } = req.params;
       const updateItem = await this.ItemService.update({
-        id,
         name,
         price,
         user_id,
         order_id,
+        id,
       });
 
       res

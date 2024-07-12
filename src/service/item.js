@@ -79,7 +79,7 @@ class ItemService {
       return {
         updateItem: { name, price, user_id, order_id },
         message: "Update item success ",
-        statusCode: 200,
+        statusCode: 201,
       };
     } else {
       return { updateItem: null, statusCode: 400, message: "Item not found" };

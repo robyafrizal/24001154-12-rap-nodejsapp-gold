@@ -30,12 +30,13 @@ class UserHandler {
 
   async update(req, res) {
     try {
-      const { id, name, email, password } = req.body;
+      const { name, email, password } = req.body;
+      const { id } = req.params;
       const updateUser = await this.UserService.update({
-        id,
         name,
         email,
         password,
+        id,
       });
 
       res

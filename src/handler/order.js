@@ -41,11 +41,12 @@ class OrderHandler {
 
   async update(req, res) {
     try {
-      const { id, name, status } = req.body;
+      const { name, status } = req.body;
+      const { id } = req.params;
       const updatedOrder = await this.OrderService.update({
-        id,
         name,
         status,
+        id,
       });
 
       res.status(updatedOrder.statusCode).send({

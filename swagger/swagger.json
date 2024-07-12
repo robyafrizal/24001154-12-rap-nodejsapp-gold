@@ -1,0 +1,561 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Swagger NodeJS App - OpenAPI 3.0",
+        "version": "1.0.0",
+        "description": "A CRUD API for NodeJS App"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3001",
+            "description": "Local server"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "Items": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "price"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The auto-generated id of the item"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the item"
+                    },
+                    "price": {
+                        "type": "number",
+                        "description": "The price of the item"
+                    }
+                },
+                "example": {
+                    "items": {
+                        "id": 5,
+                        "name": "Tablet Samsung",
+                        "price": 500000
+                    }
+                }
+            },
+            "User": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The auto-generated id of the item"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the user"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "The email of the user"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "The password of the user"
+                    }
+                },
+                "example": {
+                    "id": "1",
+                    "name": "Ryan",
+                    "email": "ryan@gmail.com",
+                    "password": "ryan123"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Items",
+            "description": "The items managing API"
+        },
+        {
+            "name": "Auth",
+            "description": "Authentication API"
+        }
+    ],
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "User login",
+                "description": "User login",
+                "requestBody": {
+                    "description": "User login into application",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "format": "email"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "User register",
+                "description": "User register",
+                "requestBody": {
+                    "description": "User register into application",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "created_user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "format": "email"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get list of thread",
+                "description": "Get list of thread",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "format": "email"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/items": {
+            "get": {
+                "summary": "Returns the list of all the items",
+                "tags": [
+                    "Items"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get list of the items",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Items"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new item",
+                "tags": [
+                    "Items"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "description": "Create a new item",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "name",
+                                    "price",
+                                    "user_id",
+                                    "order_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The name of the item"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "description": "The price of the item"
+                                    },
+                                    "user_id": {
+                                        "type": "number",
+                                        "description": "The id from user"
+                                    },
+                                    "order_id": {
+                                        "type": "number",
+                                        "description": "The id from order"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Tablet",
+                                    "price": 70000,
+                                    "user_id": 1,
+                                    "order_id": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The item was successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "required": [
+                                        "name",
+                                        "price",
+                                        "user_id",
+                                        "order_id"
+                                    ],
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "description": "The name of the item"
+                                        },
+                                        "price": {
+                                            "type": "number",
+                                            "description": "The price of the item"
+                                        },
+                                        "user_id": {
+                                            "type": "number",
+                                            "description": "The id from user"
+                                        },
+                                        "order_id": {
+                                            "type": "number",
+                                            "description": "The id from order"
+                                        }
+                                    },
+                                    "example": {
+                                        "created_item": {
+                                            "name": "Tablet",
+                                            "price": 70000,
+                                            "user_id": 1,
+                                            "order_id": 1,
+                                            "updatedAt": "2024-07-12T07:46:29.135Z",
+                                            "createdAt": "2024-07-12T07:46:29.135Z"
+                                        },
+                                        "message": "Create item success"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "500": {
+                    "description": "Some server error"
+                }
+            }
+        }
+    },
+    "/items/{id}": {
+        "get": {
+            "summary": "Get the item by id",
+            "tags": [
+                "Items"
+            ],
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "required": true,
+                    "description": "The item id"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "The item description by id",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Item"
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "The item was not found"
+                }
+            }
+        },
+        "put": {
+            "summary": "Update the item by the id",
+            "tags": [
+                "Items"
+            ],
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "required": true,
+                    "description": "The item id"
+                }
+            ],
+            "requestBody": {
+                "description": "Update of item",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "name",
+                                "price",
+                                "user_id",
+                                "order_id"
+                            ],
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "description": "The name of the item"
+                                },
+                                "price": {
+                                    "type": "number",
+                                    "description": "The price of the item"
+                                },
+                                "user_id": {
+                                    "type": "number",
+                                    "description": "The id from user"
+                                },
+                                "order_id": {
+                                    "type": "number",
+                                    "description": "The id from order"
+                                }
+                            },
+                            "example": {
+                                "name": "Tablet Samsung",
+                                "price": 500000,
+                                "user_id": 2,
+                                "order_id": 3
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "Successful Operation",
+                    "content": {
+                        "application/json": {
+                            "type": "object",
+                            "properties": {
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "price": {
+                                            "type": "number"
+                                        },
+                                        "user_id": {
+                                            "type": "number"
+                                        },
+                                        "order_id": {
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "message": "Update item success"
+                            },
+                            "example": {
+                                "items": {
+                                    "name": "Tablet Samsung",
+                                    "price": 500000,
+                                    "user_id": 2,
+                                    "order_id": 3
+                                },
+                                "message": "Update item success"
+                            }
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "The item was not found"
+            },
+            "500": {
+                "description": "Some error happened"
+            }
+        },
+        "delete": {
+            "summary": "Remove the item by id",
+            "tags": [
+                "Items"
+            ],
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "required": true,
+                    "description": "The item id"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "The item was deleted"
+                },
+                "404": {
+                    "description": "The item was not found"
+                }
+            }
+        }
+    }
+}

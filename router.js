@@ -26,7 +26,7 @@ const userHandler = new UserHandler(userService);
 
 router.get("/users", userHandler.getAll);
 router.get("/users/:id", userHandler.getId);
-router.put("/users", userHandler.update);
+router.put("/users/:id", userHandler.update);
 router.delete("/users/:id", userHandler.delete);
 
 //-----------------Auth Handler------------------------------
@@ -47,7 +47,7 @@ const orderHandler = new OrderHandler(orderService);
 router.get("/orders", orderHandler.getAll);
 router.get("/orders/:id", orderHandler.getId);
 router.post("/orders", orderHandler.create);
-router.put("/orders", orderHandler.update);
+router.put("/orders/:id", orderHandler.update);
 router.delete("/orders/:id", orderHandler.delete);
 
 //------------------Item Handler------------------------------
@@ -58,7 +58,14 @@ const itemHandler = new ItemHandler(itemService);
 router.get("/items", itemHandler.getAll);
 router.post("/items", itemHandler.create);
 router.get("/items/:id", itemHandler.getId);
-router.put("/items", itemHandler.update);
+router.put("/items/:id", itemHandler.update);
 router.delete("/items/:id", itemHandler.delete);
+
+//-------------------Swagger----------------------------
+const swaggerJSON = require("./swagger/swagger.json");
+const swaggerUI = require("swagger-ui-express");
+
+router.use("/api-docs", swaggerUI.serve);
+router.get("/api-docs", swaggerUI.setup(swaggerJSON));
 
 module.exports = router;
