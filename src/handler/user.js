@@ -56,6 +56,15 @@ class UserHandler {
       res.status(deleteUser.statusCode).send({ message: err.message });
     }
   }
+
+  async profile(req, res) {
+    res.send(req.file);
+  }
+
+  async photos(req, res) {
+    res.send({ data: req.file, message: "Upload successfully" });
+    // console.log(req.file);
+  }
 }
 
 module.exports = UserHandler;

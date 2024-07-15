@@ -1,7 +1,12 @@
 const router = require("express").Router();
+const multer = require("multer");
 
 router.get("/", (req, res) => {
-  res.render("index");
+  if (req.isAuthenticated()) {
+    return res.render("index");
+  } else {
+    res.redirect("/login");
+  }
 });
 
 const UserRepository = require("./src/repository/user");
@@ -29,6 +34,34 @@ router.get("/users/:id", userHandler.getId);
 router.put("/users/:id", userHandler.update);
 router.delete("/users/:id", userHandler.delete);
 
+//-------------------Multer-file_upload-----------------------------
+const storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, "./uploads");
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.originalname);
+  },
+});
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, callback) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg"
+    ) {
+      return callback(null, true);
+    } else {
+      callback(null, false);
+      return callback(new Error("Only .png, .jpg and .jpeg format allowed!"));
+    }
+  },
+});
+
+router.post("/profile", upload.single("avatar"), userHandler.profile);
+router.post("/photos/upload", upload.array("photos"), userHandler.photos);
+
 //-----------------Auth Handler------------------------------
 const authService = new AuthService(userRepository);
 const authHandler = new AuthHandler(authService);
@@ -36,6 +69,7 @@ const authHandler = new AuthHandler(authService);
 
 router.get("/register", authHandler.registerPage);
 router.post("/register", authHandler.register);
+router.get("/login", authHandler.loginPage);
 router.post("/login", authHandler.login);
 
 //---------------------Order Handler-----------------------------------

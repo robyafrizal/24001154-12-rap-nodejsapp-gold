@@ -15,9 +15,10 @@ class AuthHandler {
       res
         .status(userRegister.statusCode)
         .send({ users: userRegister.newUser, message: userRegister.message });
-      // res.redirect("login");
+      res.redirect("login");
     } catch (err) {
       res.status(500).send({ message: err.message });
+      res.redirect("register");
     }
   }
 
@@ -32,9 +33,25 @@ class AuthHandler {
       res
         .status(userLogin.statusCode)
         .send({ user: userLogin.loginUser, message: userLogin.message });
+      passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/login",
+        failureFlash: true,
+      });
     } catch (err) {
       res.status(500).send({ message: err.message });
     }
+  }
+
+  async loginPage(req, res) {
+    let message = "";
+    if (req.session) {
+      if (req.session.message) {
+        message = req.session.message[0];
+        req.sessian.message = [];
+      }
+    }
+    return res.render("login", { message: message });
   }
 }
 
