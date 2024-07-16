@@ -24,7 +24,6 @@ app.use(passport.session());
 //----------------------Import midddleware-----------------------------
 const logger = require("./src/middleware/logger");
 const not_found = require("./src/middleware/not_found");
-const multer = require("multer");
 
 app.use(express.json());
 app.use(logger);

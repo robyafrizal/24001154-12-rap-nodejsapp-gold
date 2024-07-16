@@ -1,3 +1,27 @@
+//-----------------Cloudinary------------------------------
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
+
+cloudinary.config({
+  cloud_name: "dtyevm8fs",
+  api_key: "492215468748176",
+  api_secret: "tHNIkWAVahfdOGpbBrjc3y5IMmg",
+});
+
+async function uploadCloudinary(filepath) {
+  let result;
+  try {
+    result = await cloudinary.uploader.upload(filepath, {
+      use_filename: true,
+    });
+    fs.unlinkSync(filepath);
+    return result.url;
+  } catch (err) {
+    fs.unlinkSync(filepath);
+    return null;
+  }
+}
+
 class UserHandler {
   constructor(UserService) {
     this.UserService = UserService;
@@ -58,13 +82,44 @@ class UserHandler {
   }
 
   async profile(req, res) {
-    res.send(req.file);
+    const url = await uploadCloudinary(req.file.path);
+    if (url) {
+      return res.json({
+        message: "Upload success",
+        url: url,
+      });
+    } else {
+      return res.json({
+        message: "Upload failed",
+      });
+    }
+  }
+  async photos(req, res) {
+    let urls = [];
+    for (const file of req.files) {
+      const url = await uploadCloudinary(file.path);
+      if (url) {
+        urls.push(url);
+      } else {
+        return res.json({
+          message: "Upload failed",
+        });
+      }
+    }
+    return res.json({
+      message: "Upload success",
+      url: urls,
+    });
   }
 
-  async photos(req, res) {
-    res.send({ data: req.file, message: "Upload successfully" });
-    // console.log(req.file);
-  }
+  // async profile(req, res) {
+  //   res.send(req.file);
+  // }
+
+  // async photos(req, res) {
+  //   res.send({ data: req.file, message: "Upload successfully" });
+  //   // console.log(req.file);
+  // }
 }
 
 module.exports = UserHandler;
