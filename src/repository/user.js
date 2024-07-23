@@ -1,4 +1,3 @@
-const bcrypt = require("bcrypt");
 const { User } = require("../../models");
 
 class UserRepository {
@@ -15,17 +14,25 @@ class UserRepository {
     return idUser;
   }
 
-  async findEmail(user) {
-    const emailUser = await User.findOne({ where: { email: user.email } });
-    return emailUser;
+  // async findEmail(email) {
+  //   const emailUser = await User.findOne({ where: { email } });
+  //   return emailUser;
+  // }
+  async getByEmail(email) {
+    const user = await User.findOne({
+      where: {
+        email,
+      },
+    });
+
+    return user;
   }
 
   async create(user) {
-    const encryptedPassword = bcrypt.hashSync(user.password, 10);
     const createdUser = await User.create({
       name: user.name,
       email: user.email,
-      password: encryptedPassword,
+      password: user.password,
     });
     return createdUser;
   }

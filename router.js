@@ -1,13 +1,15 @@
+const authMiddleware = require("./src/middleware/auth");
+
 const router = require("express").Router();
 const multer = require("multer");
 
-router.get("/", (req, res) => {
-  if (req.isAuthenticated()) {
-    return res.render("index");
-  } else {
-    res.redirect("/login");
-  }
-});
+// router.get("/", (req, res) => {
+//   if (req.isAuthenticated()) {
+//     return res.render("index");
+//   } else {
+//     res.redirect("/login");
+//   }
+// });
 
 //-----------------------------------------------
 const UserRepository = require("./src/repository/user");
@@ -30,7 +32,13 @@ const userRepository = new UserRepository();
 const userService = new UserService(userRepository);
 const userHandler = new UserHandler(userService);
 
-router.get("/users", userHandler.getAll);
+router.get(
+  "/users",
+  authMiddleware.authenticate,
+  authMiddleware.checkUserIsRyanti,
+  userHandler.getAll
+);
+// router.get("/users", userHandler.getAll);
 router.get("/users/:id", userHandler.getId);
 router.put("/users/:id", userHandler.update);
 router.delete("/users/:id", userHandler.delete);
@@ -68,9 +76,9 @@ const authService = new AuthService(userRepository);
 const authHandler = new AuthHandler(authService);
 // console.log("auth service");
 
-router.get("/register", authHandler.registerPage);
+// router.get("/register", authHandler.registerPage);
 router.post("/register", authHandler.register);
-router.get("/login", authHandler.loginPage);
+// router.get("/login", authHandler.loginPage);
 router.post("/login", authHandler.login);
 
 //---------------------Order Handler-----------------------------------
