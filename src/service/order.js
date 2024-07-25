@@ -22,7 +22,7 @@ class OrderService {
   async getId(id) {
     const orderId = await this.OrderRepository.findId(id);
     if (!orderId) {
-      return { message: "Order not found", statusCode: 400 };
+      return { message: "Order not found", statusCode: 404 };
     } else {
       return {
         orderId: orderId,
@@ -72,7 +72,7 @@ class OrderService {
       return {
         updatedOrder: null,
         message: "Order not found",
-        statusCode: 400,
+        statusCode: 404,
       };
     }
   }
@@ -80,12 +80,12 @@ class OrderService {
   async delete(id) {
     const deletedOrder = await this.OrderRepository.delete(id);
     if (deletedOrder == false) {
-      return { message: "Order not found", statusCode: 400 };
+      return { message: "Order not found", statusCode: 404 };
     } else {
       return {
         deletedOrder: deletedOrder,
         message: "Delete order success",
-        statusCode: 200,
+        statusCode: 204,
       };
     }
   }

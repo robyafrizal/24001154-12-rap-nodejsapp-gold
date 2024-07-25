@@ -5,6 +5,7 @@ const express = require("express");
 // const passportConfig = require("./lib/passport");
 
 const app = express();
+app.use(express.json());
 const PORT = process.env.port || 3001;
 const router = require("./router");
 
@@ -37,12 +38,9 @@ const router = require("./router");
 // });
 
 //-----------------------------------------------------
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 //-------------------View Engine EJS-----------------------------
 app.set("view engine", "ejs");
-
-//-------------------Router----------------------------
-app.use(router);
 
 //------------------------Local Strategy-----------------------------
 // app.use(
@@ -59,8 +57,9 @@ app.use(router);
 const logger = require("./src/middleware/logger");
 const not_found = require("./src/middleware/not_found");
 
-app.use(express.json());
 app.use(logger);
+//-------------------Router----------------------------
+app.use(router);
 
 //-------------------Internal Server Erro Middlewarer-----------------------------
 app.get("/get-error", (req, res) => {

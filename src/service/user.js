@@ -22,7 +22,7 @@ class UserService {
   async getId(id) {
     const userById = await this.UserRepository.findId(id);
     if (!userById) {
-      return { message: "User not found", statusCode: 400 };
+      return { message: "User not found", statusCode: 404 };
     } else {
       return {
         userById: userById,
@@ -65,19 +65,19 @@ class UserService {
         statusCode: 200,
       };
     } else {
-      return { statusCode: 400, message: "User not found" };
+      return { statusCode: 404, message: "User not found" };
     }
   }
 
   async delete(id) {
     const deleteUser = await this.UserRepository.delete(id);
     if (deleteUser == false) {
-      return { message: "User not found", statusCode: 400 };
+      return { message: "User not found", statusCode: 404 };
     } else {
       return {
         deleteUser: deleteUser,
         message: "Delete user success",
-        statusCode: 200,
+        statusCode: 204,
       };
     }
   }

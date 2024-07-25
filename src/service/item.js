@@ -22,7 +22,7 @@ class ItemService {
   async getId(id) {
     const itemId = await this.ItemRepository.findId(id);
     if (!itemId) {
-      return { message: "Item not found", statusCode: 400 };
+      return { message: "Item not found", statusCode: 404 };
     } else {
       return {
         itemId: itemId,
@@ -82,19 +82,19 @@ class ItemService {
         statusCode: 201,
       };
     } else {
-      return { updateItem: null, statusCode: 400, message: "Item not found" };
+      return { updateItem: null, statusCode: 404, message: "Item not found" };
     }
   }
 
   async delete(id) {
     const deleteItem = await this.ItemRepository.delete(id);
     if (deleteItem == false) {
-      return { message: "Item not found", statusCode: 400 };
+      return { message: "Item not found", statusCode: 404 };
     } else {
       return {
         deleteItem: deleteItem,
         message: "Delete item success",
-        statusCode: 200,
+        statusCode: 204,
       };
     }
   }
