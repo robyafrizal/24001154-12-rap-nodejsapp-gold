@@ -69,6 +69,19 @@ class UserService {
     }
   }
 
+  // async updateProfile(id, profile_picture) {
+  //   const profile = this.UserRepository.updateProfile(id, profile_picture);
+  //   if (profile != null) {
+  //     return {
+  //       newProfile: { id, profile_picture },
+  //       message: "Update profile success ",
+  //       statusCode: 200,
+  //     };
+  //   } else {
+  //     return { statusCode: 404, message: "User profile not found" };
+  //   }
+  // }
+
   async delete(id) {
     const deleteUser = await this.UserRepository.delete(id);
     if (deleteUser == false) {

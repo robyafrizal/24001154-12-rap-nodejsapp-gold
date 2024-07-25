@@ -71,16 +71,6 @@ class UserHandler {
     }
   }
 
-  async delete(req, res) {
-    try {
-      const id = req.params.id;
-      const deleteUser = await this.UserService.delete(id);
-      res.status(deleteUser.statusCode).send({ message: deleteUser.message });
-    } catch (err) {
-      res.status(deleteUser.statusCode).send({ message: err.message });
-    }
-  }
-
   async profile(req, res) {
     const url = await uploadCloudinary(req.file.path);
     if (url) {
@@ -110,6 +100,16 @@ class UserHandler {
       message: "Upload success",
       url: urls,
     });
+  }
+
+  async delete(req, res) {
+    try {
+      const id = req.params.id;
+      const deleteUser = await this.UserService.delete(id);
+      res.status(deleteUser.statusCode).send({ message: deleteUser.message });
+    } catch (err) {
+      res.status(deleteUser.statusCode).send({ message: err.message });
+    }
   }
 
   // async profile(req, res) {

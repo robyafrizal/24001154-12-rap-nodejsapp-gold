@@ -25,13 +25,13 @@ class Auth {
     next();
   }
 
-  static checkUserIsRyanti(req, res, next) {
-    // TODO: pastikan user yang masuk payloadnya adalah rian@binar.com
-    if (req.userEmail === "ryanti@binar.com") {
+  static checkUserIsDian(req, res, next) {
+    // TODO: pastikan user yang masuk payloadnya adalah dian@gmail.com
+    if (req.userEmail === "dian@gmail.com") {
       next();
     } else {
       return res.status(401).send({
-        message: "User bukan ryanti",
+        message: "User bukan dian",
         data: null,
       });
     }

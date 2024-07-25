@@ -14,20 +14,20 @@ class UserRepository {
     return idUser;
   }
 
-  async findEmail(user) {
-    const emailUser = await User.findOne({ where: { email: user.email } });
-    return emailUser;
-  }
-
-  // async getByEmail(email) {
-  //   const user = await User.findOne({
-  //     where: {
-  //       email,
-  //     },
-  //   });
-
-  //   return user;
+  // async findEmail(user) {
+  //   const emailUser = await User.findOne({ where: { email: user.email } });
+  //   return emailUser;
   // }
+
+  async getByEmail(email) {
+    const user = await User.findOne({
+      where: {
+        email,
+      },
+    });
+
+    return user;
+  }
 
   async create(user) {
     const createdUser = await User.create({
@@ -45,6 +45,14 @@ class UserRepository {
     );
     return updateUser;
   }
+
+  // async updateProfile(id, profile_picture) {
+  //   const profile = await User.update(
+  //     { profile_picture },
+  //     { where: { id }, returning: true }
+  //   );
+  //   return profile[1][0];
+  // }
 
   async delete(id) {
     const deleteUser = await User.destroy({

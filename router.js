@@ -1,4 +1,4 @@
-// const authMiddleware = require("./src/middleware/auth");
+const authMiddleware = require("./src/middleware/auth");
 
 const router = require("express").Router();
 const multer = require("multer");
@@ -32,13 +32,13 @@ const userRepository = new UserRepository();
 const userService = new UserService(userRepository);
 const userHandler = new UserHandler(userService);
 
-// router.get(
-//   "/users",
-//   authMiddleware.authenticate,
-//   authMiddleware.checkUserIsRyanti,
-//   userHandler.getAll
-// );
-router.get("/users", userHandler.getAll);
+router.get(
+  "/users",
+  authMiddleware.authenticate,
+  authMiddleware.checkUserIsDian,
+  userHandler.getAll
+);
+// router.get("/users", userHandler.getAll);
 router.get("/users/:id", userHandler.getId);
 router.put("/users/:id", userHandler.update);
 router.delete("/users/:id", userHandler.delete);
