@@ -50,17 +50,18 @@ class UserService {
   //   }
   // }
 
-  async update({ id, name, email, password }) {
+  async update({ id, name, email, password, profile_picture }) {
     const updateUser = await this.UserRepository.update({
       id,
       name,
       email,
       password,
+      profile_picture,
     });
     const userId = await this.UserRepository.findId(id);
     if (userId != null) {
       return {
-        updateUser: { name, email },
+        updateUser: { name, email, profile_picture },
         message: "Update user success ",
         statusCode: 200,
       };
@@ -68,19 +69,6 @@ class UserService {
       return { statusCode: 404, message: "User not found" };
     }
   }
-
-  // async updateProfile(id, profile_picture) {
-  //   const profile = this.UserRepository.updateProfile(id, profile_picture);
-  //   if (profile != null) {
-  //     return {
-  //       newProfile: { id, profile_picture },
-  //       message: "Update profile success ",
-  //       statusCode: 200,
-  //     };
-  //   } else {
-  //     return { statusCode: 404, message: "User profile not found" };
-  //   }
-  // }
 
   async delete(id) {
     const deleteUser = await this.UserRepository.delete(id);

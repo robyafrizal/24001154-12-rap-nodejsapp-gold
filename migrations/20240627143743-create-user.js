@@ -18,6 +18,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
+      profile_picture: {
+        type: Sequelize.STRING,
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,

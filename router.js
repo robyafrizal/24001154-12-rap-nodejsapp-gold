@@ -42,6 +42,7 @@ router.get(
 router.get("/users/:id", userHandler.getId);
 router.put("/users/:id", userHandler.update);
 router.delete("/users/:id", userHandler.delete);
+// router.put("/users/:id/profilePicture", userHandler.updateProfile);
 
 //-------------------Multer-file_upload-----------------------------
 const storage = multer.diskStorage({
@@ -49,7 +50,7 @@ const storage = multer.diskStorage({
     callback(null, "./uploads");
   },
   filename: function (req, file, callback) {
-    callback(null, file.originalname);
+    callback(null, file.originalname + "bymulter");
   },
 });
 const upload = multer({

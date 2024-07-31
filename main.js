@@ -1,14 +1,24 @@
 //-----------------Require-----------------------------
 const express = require("express");
+const cors = require("cors");
+
+// const morgan = require("morgan");
 // const session = require("express-session");
 // const passport = require("passport");
 // const passportConfig = require("./lib/passport");
 
+const corsOptions = {
+  origin: "http://localhost:" + process.env.port,
+  optionsSuccessStatus: 200,
+};
+
+require("dotenv").config();
 const app = express();
+app.use(cors(corsOptions));
 app.use(express.json());
 const PORT = process.env.port || 3001;
-const router = require("./router");
 
+const router = require("./router");
 // const nodemailer = require("nodemailer");
 
 //------------------------Node_Mailer-----------------------------
@@ -53,13 +63,19 @@ app.set("view engine", "ejs");
 // app.use(passport.initialize());
 // app.use(passport.session());
 
-//----------------------Import midddleware-----------------------------
-const logger = require("./src/middleware/logger");
-const not_found = require("./src/middleware/not_found");
-
-app.use(logger);
 //-------------------Router----------------------------
 app.use(router);
+
+//----------------------Import midddleware-----------------------------
+// app.use(morgan("combined")); //For Logging
+
+const logger = require("./src/middleware/logger"); //For Logging
+app.use(logger);
+
+const not_found = require("./src/middleware/not_found");
+//-------------------404 Handler Error not found Middleware-----------------------------
+//Menghandle error jika endpoint belum dibuat
+app.use(not_found);
 
 //-------------------Internal Server Erro Middlewarer-----------------------------
 app.get("/get-error", (req, res) => {
@@ -70,10 +86,6 @@ app.use((err, req, res, next) => {
 
   res.status(500).json({ status: "Failed", errors: err.message });
 });
-
-//-------------------404 Handler Error not found Middleware-----------------------------
-//Menghandle error jika endpoint belum dibuat
-app.use(not_found);
 
 //-------------------Listen_And_Note-----------------------------
 app.listen(PORT, () => {

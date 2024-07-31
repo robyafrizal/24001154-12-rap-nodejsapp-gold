@@ -34,25 +34,23 @@ class UserRepository {
       name: user.name,
       email: user.email,
       password: user.password,
+      profile_picture: user.profile_picture,
     });
     return createdUser;
   }
 
   async update(user) {
     const updateUser = await User.update(
-      { name: user.name, email: user.email, password: user.password },
+      {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        profile_picture: user.profile_picture,
+      },
       { where: { id: user.id } }
     );
     return updateUser;
   }
-
-  // async updateProfile(id, profile_picture) {
-  //   const profile = await User.update(
-  //     { profile_picture },
-  //     { where: { id }, returning: true }
-  //   );
-  //   return profile[1][0];
-  // }
 
   async delete(id) {
     const deleteUser = await User.destroy({

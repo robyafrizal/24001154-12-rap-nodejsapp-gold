@@ -1,12 +1,6 @@
 //-----------------Cloudinary------------------------------
-const cloudinary = require("cloudinary").v2;
+const cloudinary = require("../../config/cloudinary");
 const fs = require("fs");
-
-cloudinary.config({
-  cloud_name: "dtyevm8fs",
-  api_key: "492215468748176",
-  api_secret: "tHNIkWAVahfdOGpbBrjc3y5IMmg",
-});
 
 async function uploadCloudinary(filepath) {
   let result;
@@ -54,12 +48,13 @@ class UserHandler {
 
   async update(req, res) {
     try {
-      const { name, email, password } = req.body;
+      const { name, email, password, profile_picture } = req.body;
       const { id } = req.params;
       const updateUser = await this.UserService.update({
         name,
         email,
         password,
+        profile_picture,
         id,
       });
 

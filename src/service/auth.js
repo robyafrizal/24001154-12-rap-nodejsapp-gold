@@ -30,7 +30,7 @@ class AuthService {
   // }
   //---------------------------------------------------------
 
-  async register({ name, email, password }) {
+  async register({ name, email, password, profile_picture }) {
     try {
       const emailUser = await this.UserRepository.getByEmail(email);
       if (emailUser) {
@@ -47,6 +47,7 @@ class AuthService {
         name,
         email,
         password: encryptedPassword,
+        profile_picture,
       });
       return {
         statusCode: 201,
