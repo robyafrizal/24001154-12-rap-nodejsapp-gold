@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 class AuthService {
   constructor(UserRepository) {
     this.UserRepository = UserRepository;
+    // this.MailRepository = MailRepository;
   }
 
   // async register({ name, email, password }) {
@@ -49,6 +50,16 @@ class AuthService {
         password: encryptedPassword,
         profile_picture,
       });
+
+      // const mail = {
+      //   from: "robyafrizal86@gmail.com",
+      //   to: email,
+      //   subject: "Verifikasi Registrasi Akun Ecommerce",
+      //   text: "Kode verifikasi Anda adalah : 1234",
+      // };
+
+      // const sendEmail = await this.MailRepository.sendEmail(mail);
+
       return {
         statusCode: 201,
         createdUser: createdUser,

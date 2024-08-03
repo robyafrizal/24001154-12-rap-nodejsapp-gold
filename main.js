@@ -19,33 +19,6 @@ app.use(express.json());
 const PORT = process.env.port || 3001;
 
 const router = require("./router");
-// const nodemailer = require("nodemailer");
-
-//------------------------Node_Mailer-----------------------------
-// const transporter = nodemailer.createTransport({
-//   host: "smtp.gmail.com",
-//   port: 465,
-//   secure: true,
-//   auth: {
-//     user: "robyafrizal86@gmail.com",
-//     pass: "ryan171586",
-//   },
-// });
-
-// const mail = {
-//   from: "robyafrizal86@gmail.com",
-//   to: "myboxlaundry86@gmail.com",
-//   subject: "Hai roby",
-//   text: "keep spirit yah",
-// };
-
-// transporter.sendMail(mail, (err, info) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log("Email sent: " + info.response);
-//   }
-// });
 
 //-----------------------------------------------------
 // app.use(express.urlencoded({ extended: false }));
