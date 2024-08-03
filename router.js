@@ -13,9 +13,9 @@ const multer = require("multer");
 
 //-----------------------------------------------
 const UserRepository = require("./src/repository/user");
-const MailRepository = require("./src/repository/mail");
 const UserService = require("./src/service/user");
 const UserHandler = require("./src/handler/user");
+const MailRepository = require("./src/repository/mail");
 const AuthService = require("./src/service/auth");
 const AuthHandler = require("./src/handler/auth");
 
@@ -74,30 +74,31 @@ router.post("/profile", upload.single("avatar"), userHandler.profile);
 router.post("/photos/upload", upload.array("photos"), userHandler.photos);
 
 //-----------------Auth Handler------------------------------
-// const nodeMailer = new MailRepository();
-const authService = new AuthService(userRepository);
+const nodeMailer = new MailRepository();
+const authService = new AuthService(userRepository, nodeMailer);
 const authHandler = new AuthHandler(authService);
 // console.log("auth service");
 
-const nodemailer = require("nodemailer");
-const smtp = require("./config/smtp");
+//-------------------------------------------
+// const nodemailer = require("nodemailer");
+// const smtp = require("./config/smtp");
 
-const mail = {
-  from: "robyafrizal86@gmail.com",
-  to: "myboxlaundry86@gmail.com",
-  subject: "Verifikasi Registrasi Akun Ecommerce",
-  text: "Kode verifikasi Anda adalah : 1234",
-};
-const transporter = nodemailer.createTransport(smtp);
-transporter.sendMail(mail, function (err, info) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("Email sent: " + info.response);
-  }
-});
+// const mail = {
+//   from: "robyafrizal86@gmail.com",
+//   to: "myboxlaundry86@gmail.com",
+//   subject: "Verifikasi Registrasi Akun Ecommerce",
+//   text: "Kode verifikasi Anda adalah : 1234",
+// };
+// const transporter = nodemailer.createTransport(smtp);
+// transporter.sendMail(mail, function (err, info) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("Email sent: " + info.response);
+//   }
+// });
 
-// const sendEmail = await this.MailRepository.sendEmail(mail);
+//-------------------------------------------
 
 // router.get("/register", authHandler.registerPage);
 router.post("/register", authHandler.register);
