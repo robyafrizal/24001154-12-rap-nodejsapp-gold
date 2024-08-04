@@ -3,8 +3,8 @@ const smtp = {
   port: 465,
   secure: true,
   auth: {
-    user: "robyafrizal86@gmail.com",
-    pass: "adwuxqajtnwegbqm",
+    user: process.env.USERSMTP,
+    pass: process.env.PASS,
   },
 };
 

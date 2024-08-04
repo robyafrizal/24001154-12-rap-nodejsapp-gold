@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "nodemon main.js",
+    "dev": "NODE_ENV=development nodemon main.js",
     "test": "jest"
   },
   "author": "Roby Afrizal",

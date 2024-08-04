@@ -1,5 +1,6 @@
 //-----------------Require-----------------------------
 const express = require("express");
+require("dotenv").config();
 const cors = require("cors");
 
 // const morgan = require("morgan");
@@ -12,7 +13,6 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-require("dotenv").config();
 const app = express();
 app.use(cors(corsOptions));
 app.use(express.json());
