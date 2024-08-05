@@ -2,6 +2,7 @@
 const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
+const router = express.Router();
 
 // const morgan = require("morgan");
 // const session = require("express-session");
@@ -9,16 +10,14 @@ const cors = require("cors");
 // const passportConfig = require("./lib/passport");
 
 const corsOptions = {
-  origin: "http://localhost:" + process.env.port,
+  origin: "http://localhost:" + process.env.PORT,
   optionsSuccessStatus: 200,
 };
 
 const app = express();
 app.use(cors(corsOptions));
 app.use(express.json());
-const PORT = process.env.port || 3001;
-
-const router = require("./router");
+const PORT = process.env.PORT || 3001;
 
 //-----------------------------------------------------
 // app.use(express.urlencoded({ extended: false }));
@@ -37,7 +36,15 @@ app.set("view engine", "ejs");
 // app.use(passport.session());
 
 //-------------------Router----------------------------
-app.use(router);
+const authRouter = require("./src/router/auth");
+const itemRouter = require("./src/router/item");
+const orderRouter = require("./src/router/order");
+const swaggerRouter = require("./src/router/swagger");
+const userRouter = require("./src/router/user");
+
+router.use(authRouter, itemRouter, orderRouter, swaggerRouter, userRouter);
+
+app.use("/api", router);
 
 //----------------------Import midddleware-----------------------------
 // app.use(morgan("combined")); //For Logging

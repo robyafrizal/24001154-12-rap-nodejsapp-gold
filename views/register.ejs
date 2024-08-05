@@ -42,6 +42,7 @@
       input[type="text"],
       input[type="email"],
       input[type="password"],
+      input[type="file"],
       select {
         width: 100%;
         margin-bottom: 15px;
@@ -67,7 +68,7 @@
   <body>
     <div class="main">
       <h2>Register Form</h2>
-      <form method="post" action="/register">
+      <form method="post" action="/api/register" enctype="multipart/form-data">
         <label for="name">Name:</label>
         <input
           type="text"
@@ -93,6 +94,15 @@
           name="password"
           required
           placeholder="What is your password?"
+        />
+
+        <label for="profile_picture">Choose images to upload (PNG, JPG)</label>
+        <input
+          type="file"
+          id="profile_picture"
+          name="profile_picture"
+          accept=".jpg, .jpeg, .png"
+          multiple
         />
 
         <button type="submit">Register</button>
