@@ -3,7 +3,7 @@ class AuthHandler {
     this.AuthService = AuthService;
 
     this.register = this.register.bind(this);
-    // this.registerPage = this.registerPage.bind(this);
+    this.registerPage = this.registerPage.bind(this);
     this.login = this.login.bind(this);
   }
 
@@ -22,9 +22,9 @@ class AuthHandler {
   //   }
   // }
 
-  // async registerPage(req, res) {
-  //   res.render("register");
-  // }
+  async registerPage(req, res) {
+    res.render("register");
+  }
 
   //---------------------------------------------------------
   async login(req, res) {
