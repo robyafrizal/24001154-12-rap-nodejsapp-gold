@@ -20,57 +20,20 @@
 #       - run: echo "🍏 This job's status is ${{ job.status }}."
 
 #---------------------------------------
-# name: Ecommerce Node JS App
+name: NodeJS App
 
-# on:
-#   push:
-#     branches: ["main"]
-#   pull_request:
-#     branches: ["main"]
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Deploy using ssh
-#         uses: appleboy/ssh-action@master
-#         with:
-#           host: "35.238.135.113"
-#           username: "root"
-#           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
-#           port: 22
-#           script: |
-#             git config --global --add safe.directory /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
-
-#             curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-#             apt install -y nodejs
-
-#             npm install -g npm@latest
-
-#             # Ensure pm2 is installed
-#             npm install -g pm2
-
-#             # Change to the project directory and execute the build script
-#             cd /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
-#             chmod +x ./build.sh
-#             ./build.sh
-
-#---------------------------------------
-name: Ecommerce Node JS App
 on:
   push:
-    branches: ["main"]
+    branches: ["master"]
   pull_request:
-    branches: ["main"]
+    branches: ["master"]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy using gcloud
-        uses: "google-github-actions/ssh-compute@v1"
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
         with:
           host: "35.238.135.113"
           username: "root"
@@ -91,6 +54,43 @@ jobs:
             cd /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
             chmod +x ./build.sh
             ./build.sh
+
+#---------------------------------------
+# name: Ecommerce Node JS App
+# on:
+#   push:
+#     branches: ["main"]
+#   pull_request:
+#     branches: ["main"]
+
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Deploy using gcloud
+#         uses: "google-github-actions/ssh-compute@v1"
+#         with:
+#           host: "35.238.135.113"
+#           username: "root"
+#           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
+#           port: 22
+#           script: |
+#             git config --global --add safe.directory /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
+
+#             curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+#             apt install -y nodejs
+
+#             npm install -g npm@latest
+
+#             # Ensure pm2 is installed
+#             npm install -g pm2
+
+#             # Change to the project directory and execute the build script
+#             cd /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
+#             chmod +x ./build.sh
+#             ./build.sh
 
 #---------------------------------------
 # name: Ecommerce NodeJS Application
