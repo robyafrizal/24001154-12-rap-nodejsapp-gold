@@ -35,7 +35,7 @@
 #             ./build.sh
 
 #---------------------------------------
-name: Ecommerce NodeJS Application
+name: Ecommerce NodeJS App
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
 on:
