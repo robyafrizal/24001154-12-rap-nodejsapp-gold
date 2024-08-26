@@ -1,62 +1,6 @@
-# This workflow will build a nodejs project
-
-# name: GitHub Actions Demo
+# name: NodeJS App
 # run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-# on: [push]
-# jobs:
-#   Explore-GitHub-Actions:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-#       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-#       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-#       - name: Check out repository code
-#         uses: actions/checkout@v4
-#       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-#       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-#       - name: List files in the repository
-#         run: |
-#           ls ${{ github.workspace }}
-#       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-#---------------------------------------
-name: NodeJS App
-
-on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy using ssh
-        uses: appleboy/ssh-action@master
-        with:
-          host: "35.238.135.113"
-          username: "root"
-          key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            git config --global --add safe.directory /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
-
-            curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-            apt install -y nodejs
-
-            npm install -g npm@latest
-
-            # Ensure pm2 is installed
-            npm install -g pm2
-
-            # Change to the project directory and execute the build script
-            cd /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
-            chmod +x ./build.sh
-            ./build.sh
-
-#---------------------------------------
-# name: Ecommerce Node JS App
 # on:
 #   push:
 #     branches: ["main"]
@@ -64,13 +8,11 @@ jobs:
 #     branches: ["main"]
 
 # jobs:
-#   test:
-#     runs-on: ubuntu-latest
 #   build:
 #     runs-on: ubuntu-latest
 #     steps:
-#       - name: Deploy using gcloud
-#         uses: "google-github-actions/ssh-compute@v1"
+#       - name: Deploy using ssh
+#         uses: appleboy/ssh-action@master
 #         with:
 #           host: "35.238.135.113"
 #           username: "root"
@@ -93,36 +35,36 @@ jobs:
 #             ./build.sh
 
 #---------------------------------------
-# name: Ecommerce NodeJS Application
-# run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Ecommerce NodeJS Application
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
-# on:
-#   push:
-#     branches: ["main"]
+on:
+  push:
+    branches: ["main"]
 
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Deploy using ssh
-#         uses: appleboy/ssh-action@master
-#         with:
-#           host: "35.238.135.113"
-#           username: "root"
-#           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
-#           port: 22
-#           script: |
-#             git config --global --add safe.directory /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: "35.238.135.113"
+          username: "root"
+          key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            git config --global --add safe.directory /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
 
-#             # curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-#             # apt install -y nodejs
-#             # npm install -g npm@latest
-#             # Ensure pm2 is installed
-#             # npm install -g pm2
-#             # Change to the project directory and execute the build script
-#             /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
-#             git reset --hard; git clean -xdf
-#             git pull
-#             npm i
-#             pm2 delete main
-#             pm2 start main.js
+            # curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+            # apt install -y nodejs
+            # npm install -g npm@latest
+            # Ensure pm2 is installed
+            # npm install -g pm2
+            # Change to the project directory and execute the build script
+            /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
+            git reset --hard; git clean -xdf
+            git pull
+            npm i
+            pm2 delete main
+            pm2 start main.js
