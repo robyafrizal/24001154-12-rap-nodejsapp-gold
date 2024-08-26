@@ -1,6 +1,13 @@
 require("dotenv").config(); // Load environment variables from .env
 
 module.exports = {
+  // development: {
+  //   username: "postgres",
+  //   password: "171586",
+  //   database: "ecommerce",
+  //   host: "host.docker.internal",
+  //   dialect: "postgres",
+  // },
   development: {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,

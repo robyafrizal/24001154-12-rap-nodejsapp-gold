@@ -1,16 +1,21 @@
 #Database
-PORT= 3001
-DB_USERNAME=postgres
-DB_PASSWORD=171586
-DB_DATABASE=ecommerce
-DB_HOST=127.0.0.1
-DB_DIALECT=postgres
+PORT=
+DB_USERNAME=
+DB_PASSWORD=
+DB_DATABASE=
+DB_HOST=
+DB_DIALECT=
 
 #Cloudinary
-CLOUD_NAME=dtyevm8fs
-API_KEY=492215468748176
-API_SECRET=tHNIkWAVahfdOGpbBrjc3y5IMmg
+CLOUD_NAME=
+API_KEY=
+API_SECRET=
 
 #SMTP
+<<<<<<< HEAD
 USERSMTP=robyafrizal86@gmail.com
 PASS=exlhsmdeqqekfjhe
+=======
+USERSMTP=
+PASS=
+>>>>>>> 2580e25bdd1ad1ae5a969931e3afc83c6e9ee6ef

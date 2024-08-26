@@ -17,6 +17,16 @@ class ItemHandler {
     });
   }
 
+  // async getAll(req, res) {
+  //   const serviceRes = await this.itemService.getAll();
+
+  //   res.status(serviceRes.statusCode).send({
+  //     statusCode: serviceRes.statusCode,
+  //     message: serviceRes.message,
+  //     items: serviceRes.items,
+  //   });
+  // }
+
   async getId(req, res) {
     try {
       const id = req.params.id;
@@ -29,6 +39,17 @@ class ItemHandler {
     }
   }
 
+  // async getById(req, res) {
+  //   const id = req.params.id;
+  //   const serviceRes = await this.itemService.getById(id);
+
+  //   res.status(serviceRes.statusCode).send({
+  //     statusCode: serviceRes.statusCode,
+  //     message: serviceRes.message,
+  //     item: serviceRes.item,
+  //   });
+  // }
+
   async create(req, res) {
     const payload = req.body;
     const serviceRes = await this.ItemService.create(payload);
@@ -38,6 +59,24 @@ class ItemHandler {
       message: serviceRes.message,
     });
   }
+
+  // async create(req, res) {
+  //   const payload = req.body;
+
+  //   const serviceRes = await this.itemService.createItem({
+  //     categoryId: payload.categoryId,
+  //     name: payload.name,
+  //     description: payload.description,
+  //     price: payload.price,
+  //     stock: payload.stock,
+  //   });
+
+  //   res.status(serviceRes.statusCode).send({
+  //     statusCode: serviceRes.statusCode,
+  //     message: serviceRes.message,
+  //     created_item: serviceRes.createdItem,
+  //   });
+  // }
 
   async update(req, res) {
     try {
@@ -59,6 +98,25 @@ class ItemHandler {
     }
   }
 
+  // async update(req, res) {
+  //   const { categoryId, name, description, price, stock } = req.body;
+  //   const { id } = req.params;
+  //   const serviceRes = await this.itemService.updateItem({
+  //     categoryId,
+  //     name,
+  //     description,
+  //     price,
+  //     stock,
+  //     id,
+  //   });
+
+  //   res.status(serviceRes.statusCode).send({
+  //     statusCode: serviceRes.statusCode,
+  //     message: serviceRes.message,
+  //     updated_item: serviceRes.updatedItem,
+  //   });
+  // }
+
   async delete(req, res) {
     try {
       const id = req.params.id;
@@ -68,6 +126,17 @@ class ItemHandler {
       res.status(deleteItem.statusCode).send({ message: err.message });
     }
   }
+
+  // async delete(req, res) {
+  //   const id = req.params.id;
+  //   const serviceRes = await this.itemService.deleteItem(id);
+
+  //   res.status(serviceRes.statusCode).send({
+  //     statusCode: serviceRes.statusCode,
+  //     message: serviceRes.message,
+  //     deleted_item: serviceRes.items,
+  //   });
+  // }
 }
 
 module.exports = ItemHandler;

@@ -40,6 +40,14 @@ class ItemRepository {
     return createdItem;
   }
 
+  async deleteByName(name) {
+    await Item.destroy({
+      where: {
+        name: name,
+      },
+    });
+  }
+
   async update(item) {
     const updateItem = await Item.update(
       {

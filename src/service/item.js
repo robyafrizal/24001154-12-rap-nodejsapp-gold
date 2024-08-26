@@ -32,6 +32,31 @@ class ItemService {
     }
   }
 
+  // async getById(id) {
+  //   try {
+  //     const item = await this.itemRepository.getById(id);
+  //     if (item) {
+  //       return {
+  //         statusCode: 200,
+  //         message: "Get Item by ID successfully",
+  //         item: item,
+  //       };
+  //     } else {
+  //       return {
+  //         statusCode: 404,
+  //         message: "Item not found",
+  //         item: [],
+  //       };
+  //     }
+  //   } catch (err) {
+  //     return {
+  //       statusCode: 500,
+  //       message: err.errors,
+  //       items: null,
+  //     };
+  //   }
+  // }
+
   async create({ name, price, user_id, order_id }) {
     try {
       const createdItem = await this.ItemRepository.insert({
@@ -66,6 +91,30 @@ class ItemService {
     }
   }
 
+  // async createItem({ categoryId, name, description, price, stock }) {
+  //   try {
+  //     const createdItem = await this.itemRepository.createItem({
+  //       categoryId,
+  //       name,
+  //       description,
+  //       price,
+  //       stock,
+  //     });
+
+  //     return {
+  //       statusCode: 201,
+  //       message: "Item created successfully",
+  //       createdItem: createdItem,
+  //     };
+  //   } catch (err) {
+  //     return {
+  //       statusCode: 500,
+  //       message: err.errors,
+  //       createdItem: null,
+  //     };
+  //   }
+  // }
+
   async update({ id, name, price, user_id, order_id }) {
     const updateItem = await this.ItemRepository.update({
       id,
@@ -86,6 +135,31 @@ class ItemService {
     }
   }
 
+  // async updateItem({ id, categoryId, name, description, price, stock }) {
+  //   try {
+  //     const updated = await this.itemRepository.updateItem({
+  //       id,
+  //       categoryId,
+  //       name,
+  //       description,
+  //       price,
+  //       stock,
+  //     });
+
+  //     return {
+  //       statusCode: 201,
+  //       message: "Item updated successfully",
+  //       updatedItem: updated,
+  //     };
+  //   } catch (err) {
+  //     return {
+  //       statusCode: 500,
+  //       message: err.errors,
+  //       updatedItem: null,
+  //     };
+  //   }
+  // }
+
   async delete(id) {
     const deleteItem = await this.ItemRepository.delete(id);
     if (deleteItem == false) {
@@ -98,5 +172,30 @@ class ItemService {
       };
     }
   }
+
+  // async deleteItem(id) {
+  //   try {
+  //     const deleted = await this.itemRepository.deleteItem(id);
+  //     if (deleted) {
+  //       return {
+  //         statusCode: 200,
+  //         message: `Delete item success`,
+  //         items: deleted,
+  //       };
+  //     } else {
+  //       return {
+  //         statusCode: 404,
+  //         message: `Item not found`,
+  //         items: [],
+  //       };
+  //     }
+  //   } catch (err) {
+  //     return {
+  //       statusCode: 500,
+  //       message: err.errors,
+  //       items: null,
+  //     };
+  //   }
+  // }
 }
 module.exports = ItemService;
