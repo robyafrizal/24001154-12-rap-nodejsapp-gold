@@ -90,7 +90,7 @@
 #             chmod +x ./build.sh
 #             ./build.sh
 
-name: Ecommerce NodeJS App
+name: Ecommerce NodeJS Application
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
 on:
