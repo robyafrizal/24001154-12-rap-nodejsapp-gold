@@ -55,8 +55,8 @@ jobs:
             git reset --hard; git clean -xdf
             git pull
             npm i
-            pm2 delete main
-            pm2 start main.js
+            pm2 delete 24001154-12-rap-nodejsapp-gold
+            pm2 start main.js -n 24001154-12-rap-nodejsapp-gold
 
 #---------------------------------------
 # name: Ecommerce Node JS App
