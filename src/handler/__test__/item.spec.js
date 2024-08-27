@@ -30,14 +30,17 @@ describe("createItem", () => {
 
   // Positive case
   it("success: should response with 201 and return the created item", async () => {
-    return request(app)
-      .post("/items")
-      .set("Content-type", "application/json")
-      .send(itemToCreate)
-      .then(async (res) => {
-        expect(res.statusCode).toEqual(201);
-        expect(res.body.created_item.name).toEqual(itemToCreate.name);
-      });
+    return (
+      request(app)
+        .post("/items")
+        .set("Content-type", "application/json")
+        // .set("Authorization", "Bearer + token")
+        .send(itemToCreate)
+        .then(async (res) => {
+          expect(res.statusCode).toEqual(201);
+          expect(res.body.created_item.name).toEqual(itemToCreate.name);
+        })
+    );
   });
 
   // Negative case

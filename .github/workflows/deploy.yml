@@ -35,36 +35,62 @@ jobs:
             ./build.sh
 
 #---------------------------------------
-# name: Ecommerce NodeJS App
-# run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+# name: CI/CD Pipeline
 
 # on:
 #   push:
-#     branches: ["main"]
+#     branches:
+#       - main
 
 # jobs:
-#   deploy:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Set up Google Cloud SDK
+#         uses: google-github-actions/setup-gcloud@v1
+#         with:
+#           project_id: ${{ secrets.GCP_PROJECT_ID }}
+#           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+
+#       - name: Authenticate Docker with Google Cloud
+#         run: gcloud auth configure-docker
+
+#       - name: Build and push Docker image
+#         run: |
+#           docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app:${{ github.sha }} .
+#           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app:${{ github.sha }}
+
+#       - name: Deploy to Cloud Run
+#         run: |
+#           gcloud run deploy my-app \
+#             --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app:${{ github.sha }} \
+#             --region us-central1 \
+#             --platform managed
+
+#---------------------------------------
+# name: Go App
+# on:
+#   push:
+#     branches: ["main"]
+#   pull_request:
+#     branches: ["main"]
+# jobs:
+#   build:
 #     runs-on: ubuntu-latest
 #     steps:
 #       - name: Deploy using ssh
 #         uses: appleboy/ssh-action@master
 #         with:
-#           host: "35.238.135.113"
-#           username: "root"
+#           host: ${{ secrets.HOST }}
+#           username: ${{ secrets.USERNAME }}
 #           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
 #           port: 22
 #           script: |
-#             git config --global --add safe.directory /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
+#           cd /opt/app_name
+#           git pull origin main
+#             ./build.sh
 
-#             # curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-#             # apt install -y nodejs
-#             # npm install -g npm@latest
-#             # Ensure pm2 is installed
-#             # npm install -g pm2
-#             # Change to the project directory and execute the build script
-#             /home/robyafrizal86/24001154-12-rap-nodejsapp-gold
-#             git reset --hard; git clean -xdf
-#             git pull
-#             npm i
-#             pm2 delete main
-#             pm2 start main.js
