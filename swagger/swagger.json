@@ -7,8 +7,8 @@
     },
     "servers": [
         {
-            "url": "http://localhost:3001",
-            "description": "Local server"
+            "url": "http://35.238.135.113/",
+            "description": "Cloud Server API"
         }
     ],
     "components": {

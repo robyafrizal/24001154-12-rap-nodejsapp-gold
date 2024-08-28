@@ -3,6 +3,7 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const router = express.Router();
+const socketio = require("socket.io");
 
 // const morgan = require("morgan");
 // const session = require("express-session");
@@ -68,6 +69,19 @@ app.use((err, req, res, next) => {
 });
 
 //-------------------Listen_And_Note-----------------------------
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`App running on http://localhost: ${PORT}`);
+});
+
+//-------------------Socket IO-----------------------------
+const io = socketio(server);
+io.on("connection", (socket) => {
+  console.log("User connected");
+
+  socket.on("chat message", (msg) => {
+    console.log("message: " + message);
+  });
+  socket.on("disconnect", () => {
+    console.log("User disconnect");
+  });
 });
