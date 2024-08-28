@@ -8,7 +8,7 @@
     "servers": [
         {
             "url": "http://35.238.135.113/",
-            "description": "Cloud Server API"
+            "description": "Cloud Server Roby"
         }
     ],
     "components": {
